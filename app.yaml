@@ -1,0 +1,30 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: validatr-keras-web-service
+  labels:
+    name: validatr-keras-web-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: validatr-keras-web-service
+  template:
+    metadata:
+      name: validatr-keras-web-service
+      labels:
+        name: validatr-keras-web-service
+    spec:
+      containers:
+        - name: validatr-keras-web-service
+          image: gcr.io/dft-da-sb-lab/flask_keras
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              memory: 256Mi
+            limits:
+              memory: 512Mi
+          env:
+            - name: DEBUG_MODE
+              value: "1"
